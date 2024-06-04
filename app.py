@@ -8,7 +8,7 @@ secret_key = st.secrets["secret_key"]
 state_machine_arn = st.secrets["state_machine_arn"]
 
 # Initialize boto3 client
-client = boto3.client('stepfunctions',aws_access_key_id=access_key, aws_secret_access_key=secret_key)
+client = boto3.client('stepfunctions',aws_access_key_id=access_key, aws_secret_access_key=secret_key, region_name='us-east-1')
 
 # Initialize session state for site details
 if "site_details" not in st.session_state:
