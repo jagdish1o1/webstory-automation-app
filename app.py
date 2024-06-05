@@ -16,7 +16,7 @@ if "site_details" not in st.session_state:
 
 # Sidebar for site details
 st.sidebar.title("Site Details")
-site_keys = ["host", "username", "password", "gtag", "brand", "logo"]
+site_keys = ["host", "username", "password"]
 new_site = {}
 for key in site_keys:
     new_site[key] = st.sidebar.text_input(f"Enter {key}", value="")
