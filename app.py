@@ -29,9 +29,6 @@ st.title("Story URLs")
 story_urls = st.text_area("Enter story URLs (one per line, up to 50)", height=300)
 story_urls = story_urls.split("\n")[:50]  # Limit to 100 URLs
 
-st.title("Story Category")
-story_category = st.text_input("Enter story category")
-
 # Site selection
 st.title("Select Site")
 site_options = [site['host'] for site in st.session_state["site_details"]]
@@ -43,7 +40,6 @@ if st.button("Submit"):
     for url in story_urls:
         input_payload = {
             "url": url,
-            "category": story_category,  # replace with actual category if available
             "site": selected_site
         }
         # Start an execution
