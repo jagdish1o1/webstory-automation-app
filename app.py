@@ -34,7 +34,7 @@ story_category = st.text_input("Enter story category")
 
 # Site selection
 st.title("Select Site")
-site_options = [site['brand'] for site in st.session_state["site_details"]]
+site_options = [site['host'] for site in st.session_state["site_details"]]
 selected_site = st.selectbox("Choose a site", options=site_options)
 
 if st.button("Submit"):
