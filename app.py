@@ -61,4 +61,4 @@ if st.button("Submit"):
         )
 
 
-    st.success("All URLs have been successfully submitted!")
+    st.success("All Stories have been successfully submitted!")
