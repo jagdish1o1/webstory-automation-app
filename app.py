@@ -29,6 +29,8 @@ st.title("Story URLs")
 story_urls = st.text_area("Enter story URLs (one per line, up to 50)", height=300)
 story_urls = story_urls.split("\n")[:50]  # Limit to 100 URLs
 
+
+
 # Site selection
 st.title("Select Site")
 site_options = [site['host'] for site in st.session_state["site_details"]]
@@ -39,9 +41,19 @@ if st.button("Submit"):
     selected_site = st.session_state["site_details"][selected_site_index]
     for url in story_urls:
         input_payload = {
-            "url": url,
             "site": selected_site
         }
+        if url.startswith('https://') or url.startswith('http://'):
+            input_payload.update({
+                "url": url,
+                "story_type": "url"
+            })
+        else:
+            input_payload.update({
+                "keyword": url,
+                "story_type": "keyword"
+            })
+
         # Start an execution
         response = client.start_execution(
             stateMachineArn=state_machine_arn,
