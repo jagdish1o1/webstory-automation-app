@@ -9,6 +9,8 @@ state_machine_arn = st.secrets["state_machine_arn"]
 
 # Initialize boto3 client
 client = boto3.client('stepfunctions',aws_access_key_id=access_key, aws_secret_access_key=secret_key, region_name='us-east-1')
+sqs_client = boto3.client('sqs', aws_access_key_id=access_key, aws_secret_access_key=secret_key, region_name='us-east-1')
+sqs_queue_url = st.secrets["sqs_queue_url"]  # Add your SQS queue URL to your secrets
 
 # Initialize session state for site details
 if "site_details" not in st.session_state:
@@ -55,10 +57,16 @@ if st.button("Submit"):
             })
 
         # Start an execution
-        response = client.start_execution(
-            stateMachineArn=state_machine_arn,
-            input=json.dumps(input_payload)
+        # response = client.start_execution(
+        #     stateMachineArn=state_machine_arn,
+        #     input=json.dumps(input_payload)
+        # )
+
+        # Send a message to sqs queue
+        response = sqs_client.send_message(
+            QueueUrl=sqs_queue_url,
+            MessageBody=json.dumps(input_payload)
         )
 
 
-    st.success("All Stories have been successfully submitted!")
+    st.success("All URLs sent to SQS Queue successfully!")
