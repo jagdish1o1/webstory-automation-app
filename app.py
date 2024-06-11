@@ -29,7 +29,7 @@ if st.sidebar.button("Add Site"):
 # Main screen for URLs and site selection
 st.title("Story URLs")
 story_urls = st.text_area("Enter story URLs (one per line, up to 50)", height=300)
-story_urls = story_urls.split("\n")[:50]  # Limit to 100 URLs
+story_urls = story_urls.split("\n")  # Limit to 100 URLs
 
 
 
