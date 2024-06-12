@@ -38,7 +38,7 @@ selected_site = st.selectbox("Choose a site", options=site_options)
 
 # Select Method
 st.title("Select Method")
-selected_method = st.selectbox("Choose a site", options=['Queue', 'Direct'])
+selected_method = st.selectbox("Choose a method", options=['Queue', 'Direct'])
 
 if st.button("Submit"):
     selected_site_index = site_options.index(selected_site)
