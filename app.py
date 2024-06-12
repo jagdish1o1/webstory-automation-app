@@ -31,12 +31,14 @@ st.title("Story URLs")
 story_urls = st.text_area("Enter story URLs (one per line, up to 50)", height=300)
 story_urls = story_urls.split("\n")  # Limit to 100 URLs
 
-
-
 # Site selection
 st.title("Select Site")
 site_options = [site['host'] for site in st.session_state["site_details"]]
 selected_site = st.selectbox("Choose a site", options=site_options)
+
+# Select Method
+st.title("Select Method")
+selected_method = st.selectbox("Choose a site", options=['Queue', 'Direct'])
 
 if st.button("Submit"):
     selected_site_index = site_options.index(selected_site)
@@ -56,17 +58,19 @@ if st.button("Submit"):
                 "story_type": "keyword"
             })
 
-        # Start an execution
-        # response = client.start_execution(
-        #     stateMachineArn=state_machine_arn,
-        #     input=json.dumps(input_payload)
-        # )
-
-        # Send a message to sqs queue
-        response = sqs_client.send_message(
-            QueueUrl=sqs_queue_url,
-            MessageBody=json.dumps(input_payload)
-        )
+        if selected_method.lower() == "direct":
+            # Start an execution
+            response = client.start_execution(
+                stateMachineArn=state_machine_arn,
+                input=json.dumps(input_payload)
+            )
+    
+        if selected_method.lower() == "queue":
+            # Send a message to sqs queue
+            response = sqs_client.send_message(
+                QueueUrl=sqs_queue_url,
+                MessageBody=json.dumps(input_payload)
+            )
 
 
     st.success("All URLs sent to SQS Queue successfully!")
