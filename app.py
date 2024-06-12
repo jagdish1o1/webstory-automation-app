@@ -73,4 +73,4 @@ if st.button("Submit"):
             )
 
 
-    st.success("All URLs sent to SQS Queue successfully!")
+    st.success(f"All URLs sent to {selected_method} successfully!")
